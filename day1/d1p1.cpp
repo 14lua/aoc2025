@@ -45,6 +45,6 @@ int part_one() {
 }
 
 int main() {
-    std::cout << "Part 1: " << part_one() << std::endl;
+    std::cout << part_one() << std::endl;
     return 0;
 }
