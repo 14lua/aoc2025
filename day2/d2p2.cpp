@@ -1,10 +1,9 @@
-#include <cmath>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 
-long part_one() {
+long part_two() {
     std::ifstream input("input.txt");
     std::string line;
     std::vector<std::string> ranges = {};
@@ -22,30 +21,18 @@ long part_one() {
 
         for (long i = start; i <= end; i++) {
             std::string id = std::to_string(i);
+            std::string double_id = id + id;
 
-            int window_size = std::ceil((id.length() / 2));
+            int idx = 1;
+            while (idx < id.length()) {
+                std::string shifted_id = double_id.substr(idx, id.length());
 
-            while (window_size > 0) {
-                if (id.length() % window_size != 0) {
-                    window_size--;
-                    continue;
+                if (shifted_id == id) {
+                    invalid_ids.push_back(id);
+                    break;
                 }
 
-                std::vector<std::string> chunks = {};
-                int idx_start = 0;
-                int idx_end = window_size;
-                while (idx_end != id.length() - 1) {
-                    chunks.push_back(id.substr(idx_start, idx_end));
-                    idx_start += window_size;
-                    idx_end += window_size;
-                }
-            }
-
-            std::string id_halve_1 = id.substr(0, id.length() / 2);
-            std::string id_halve_2 = id.substr(id.length() / 2);
-
-            if (id_halve_1 == id_halve_2) {
-                invalid_ids.push_back(id);
+                idx++;
             }
         }
     }
@@ -59,5 +46,5 @@ long part_one() {
 }
 
 int main() {
-    std::cout << part_one() << std::endl;
+    std::cout << part_two() << std::endl;
 }
