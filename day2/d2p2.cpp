@@ -11,9 +11,8 @@ long part_two() {
 
     std::string t;
     while(std::getline(input, t, ',')) {
-        ranges.push_back(t);
+        ranges.push_back(std::move(t));
     }
-
 
     for (const std::string &range : ranges) {
         long start = std::stol(range.substr(0, range.find('-')));
@@ -25,10 +24,10 @@ long part_two() {
 
             int idx = 1;
             while (idx < id.length()) {
-                std::string shifted_id = double_id.substr(idx, id.length());
+                const std::string &shifted_id = double_id.substr(idx, id.length());
 
                 if (shifted_id == id) {
-                    invalid_ids.push_back(id);
+                    invalid_ids.push_back(std::move(id));
                     break;
                 }
 
