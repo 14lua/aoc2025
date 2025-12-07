@@ -8,7 +8,7 @@ std::vector<std::string> read_file() {
     std::string line;
 
     while(std::getline(input, line))
-        lines.push_back(std::move(line));
+        lines.push_back(line);
 
     return lines;
 }
@@ -30,7 +30,7 @@ long long part_two() {
     std::vector<std::vector<char>> transposed = transpose(lines);
 
     std::vector<std::string> nums;
-    for (int row = transposed.size() - 1; row >= 0; row--) {
+    for (int row = 0; row < transposed.size(); row++) {
         std::string num = "";
         for (int col = 0; col < transposed[0].size(); col++) {
             char curr = transposed[row][col];
@@ -39,7 +39,6 @@ long long part_two() {
         }
         nums.push_back(num);
     }
-
 
     std::vector<std::vector<std::string>> problems = {{}};
     for (int i = 0; i < nums.size(); i++) {
@@ -53,17 +52,17 @@ long long part_two() {
     long long sum = 0;
     for (const auto &problem : problems) {
         long long res = std::stoll(problem[0]);
-        if (problem.back().back() == '*') {
+        if (problem[0].back() == '*') {
             for (int i = 1; i < problem.size(); i++) {
                 std::string curr = problem[i];
-                if (i == problem.size() - 1)
+                if (i == 0)
                     curr = curr.substr(0, curr.length());
                 res *= std::stoll(curr);
             }
-        } else if (problem.back().back() == '+') {
+        } else if (problem[0].back() == '+') {
             for (int i = 1; i < problem.size(); i++) {
                 std::string curr = problem[i];
-                if (i == problem.size() - 1)
+                if (i == 0)
                     curr = curr.substr(0, curr.length());
                 res += std::stoll(curr);
             }
